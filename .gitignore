@@ -17,6 +17,6 @@ MavenMCP.iml
 .idea/
 
 workspace/
-/workspace/logs/
+workspace/logs
 src/main/java/net/minecraft/client/main/Main.java
 
