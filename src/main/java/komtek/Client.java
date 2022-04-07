@@ -13,6 +13,7 @@ public class Client {
 
     private static Logger logger;
     private static CheatManager cheatManager;
+    private static CapeManager capeManager;
 
     public Client() {
         Thread.currentThread().setName("KomTek");
@@ -25,6 +26,7 @@ public class Client {
         logger = LogManager.getLogger();
         logger.log(Level.INFO, "Client started");
         cheatManager = new CheatManager();
+        capeManager = new CapeManager();
     }
 
     public static Logger getLogger() {
@@ -33,5 +35,9 @@ public class Client {
 
     public static CheatManager getCheatManager() {
         return cheatManager;
+    }
+
+    public static CapeManager getCapeManager() {
+        return capeManager;
     }
 }

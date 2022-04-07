@@ -2,10 +2,9 @@ package net.optifine.player;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.File;
 import java.util.regex.Pattern;
 
+import komtek.Client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
@@ -14,6 +13,7 @@ import net.minecraft.client.renderer.texture.SimpleTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.src.Config;
 import net.minecraft.util.ResourceLocation;
+import org.apache.commons.codec.binary.Base64;
 
 public class CapeUtils {
 
@@ -24,7 +24,11 @@ public class CapeUtils {
 
         if (s != null && !s.isEmpty() && !s.contains("\u0000") && PATTERN_USERNAME.matcher(s).matches()) {
 
-            String s1 = "https://raw.githubusercontent.com/sjoblomtobias/Komtek-Client/master/capes/" + s + ".png";
+            String s1 = "";
+
+            if (Client.getCapeManager().getCapes().containsKey(s)) {
+                s1 = new String(Base64.decodeBase64(Client.getCapeManager().getCapes().get(s)));
+            }
 
             ResourceLocation resourcelocation = new ResourceLocation("capeof/" + s);
             TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
