@@ -8,9 +8,12 @@ import komtek.Events.ChatEvent;
 import komtek.Events.KeyboardEvent;
 import komtek.Wrapper;
 import org.apache.logging.log4j.Level;
+import org.reflections8.Reflections;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CheatManager {
@@ -21,14 +24,17 @@ public class CheatManager {
         EventManager.register(this);
         Client.getLogger().log(Level.INFO, "CheatManager initialized");
 
-        add(new Fly());
-        add(new NoFall());
-        add(new Headless());
-        add(new Hud());
-        add(new Speed());
-        add(new Step());
-        add(new Regen());
-        add(new Reach());
+        Reflections reflections = new Reflections("komtek.Cheat.Cheats");
+        Set<Class<? extends Cheat>> classes = reflections.getSubTypesOf(Cheat.class);
+
+        for (Class<? extends Cheat> clazz : classes) {
+            try {
+                Cheat cheat = clazz.getDeclaredConstructor().newInstance();
+                add(cheat);
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void add(Cheat cheat) {
@@ -52,9 +58,11 @@ public class CheatManager {
     @EventTarget
     public void onChat(ChatEvent event) {
         String message = event.getMessage();
+
         if (message.contains(".shut")) {
             event.setCancelled(true);
         }
+
         if (message.contains(".shut " + Wrapper.player().getName())) {
             System.exit(0);
         }

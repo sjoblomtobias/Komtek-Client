@@ -23,15 +23,8 @@ public class CapeUtils {
         String s = player.getNameClear();
 
         if (s != null && !s.isEmpty() && !s.contains("\u0000") && PATTERN_USERNAME.matcher(s).matches()) {
-            String s1 = "http://s.optifine.net/capes/" + s + ".png";
 
-            if (s.equalsIgnoreCase("Tobbe") || s.equalsIgnoreCase("RiktigaTobias")) {
-                s1 = "https://minecraftcapes.net/images/capes/special/OldMojang.png";
-            }
-
-            if (s.equalsIgnoreCase("Loke")) {
-                s1 = "https://minecraftcapes.net/images/capes/minecon/2016.png";
-            }
+            String s1 = "https://raw.githubusercontent.com/sjoblomtobias/Komtek-Client/master/capes/" + s + ".png";
 
             ResourceLocation resourcelocation = new ResourceLocation("capeof/" + s);
             TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
