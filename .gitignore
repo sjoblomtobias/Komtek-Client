@@ -16,3 +16,5 @@ buildNumber.properties
 MavenMCP.iml
 .idea/
 
+src/main/java/net/minecraft/client/main/Main.java
+
