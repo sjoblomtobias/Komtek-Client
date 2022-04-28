@@ -2,6 +2,9 @@ package net.minecraft.block;
 
 import java.util.List;
 import java.util.Random;
+
+import komtek.Cheat.Cheats.Xray;
+import komtek.Client;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -168,7 +171,7 @@ public class Block
 
     public boolean isFullBlock()
     {
-        return this.fullBlock;
+        return !Xray.enabled;
     }
 
     public int getLightOpacity()
@@ -371,6 +374,9 @@ public class Block
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
     {
+        if (Xray.enabled) {
+            return Xray.blockList.contains(this);
+        }
         return side == EnumFacing.DOWN && this.minY > 0.0D ? true : (side == EnumFacing.UP && this.maxY < 1.0D ? true : (side == EnumFacing.NORTH && this.minZ > 0.0D ? true : (side == EnumFacing.SOUTH && this.maxZ < 1.0D ? true : (side == EnumFacing.WEST && this.minX > 0.0D ? true : (side == EnumFacing.EAST && this.maxX < 1.0D ? true : !worldIn.getBlockState(pos).getBlock().isOpaqueCube())))));
     }
 
@@ -874,6 +880,9 @@ public class Block
 
     public float getAmbientOcclusionLightValue()
     {
+        if (Xray.enabled) {
+            return 1.0F;
+        }
         return this.isBlockNormalCube() ? 0.2F : 1.0F;
     }
 
